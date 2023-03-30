@@ -1,91 +1,79 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from './page.module.css'
-
-const inter = Inter({ subsets: ['latin'] })
-
 export default function Home() {
+  // Define the contract object
+  const contract = {
+    startDate: "2023-04-01",
+    endDate: "2023-09-30",
+    name: "Software Developer",
+    contact: "John Doe",
+  };
+  // Define the required roles object
+  const requiredRoles = {
+    "Java Developer": {
+      Java: 5,
+      AWS: 2,
+    },
+    "Javascript Developer": {
+      Javascript: 5,
+      AWS: 1,
+    },
+    "Python Developer": {
+      Python: 5,
+      AWS: 1,
+    },
+  };
+  // Define a sample list of candidates
+  const candidates = [
+    {
+      name: "Alice",
+      skills: {
+        Java: 5,
+        AWS: 3,
+      },
+    },
+    {
+      name: "Bob",
+      skills: {
+        Javascript: 5,
+        AWS: 2,
+      },
+    },
+    {
+      name: "Charlie",
+      skills: {
+        Python: 4,
+        AWS: 1,
+      },
+    },
+    {
+      name: "David",
+      skills: {
+        Java: 4,
+        AWS: 2,
+      },
+    },
+  ];
+  // Define the matching algorithm
+  function matchRoles(requiredRoles, candidates) {
+    const matchedCandidates = {};
+    // Iterate over each required role
+    for (const [role, skills] of Object.entries(requiredRoles)) {
+      // Find candidates that match the required skills for the role
+      const matchingCandidates = candidates.filter((candidate) => {
+        return Object.entries(skills).every(([skill, demand]) => {
+          return candidate.skills[skill] >= demand;
+        });
+      });
+      // Add the matching candidates to the result object
+      matchedCandidates[role] = matchingCandidates;
+    }
+    return matchedCandidates;
+  }
+  // Call the matching algorithm and display the results
+  const matchedCandidates = matchRoles(requiredRoles, candidates);
+  console.log(matchedCandidates);
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+    <main>
+      <h1 className="text-4xl">Hello World</h1>
     </main>
-  )
+  );
 }
