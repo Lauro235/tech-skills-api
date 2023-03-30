@@ -67,6 +67,7 @@ function Home() {
               Job Title
             </label>
             <input
+              role={'textbox'}
               type="text"
               name="job-title"
               id="job-title"
