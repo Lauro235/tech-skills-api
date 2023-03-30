@@ -22,9 +22,18 @@ function Home() {
     return matchedCandidates;
   }
 
-  function handleChange(event) {
-    setInputData({ ...inputData, [event.target.name]: event.target.value });
+  function handleChange(event, name) {
+    
+    if (name === "job-title") {
+      setInputData({ ...inputData, [event.target.name]: event.target.value });
+    } else {
+      const updatedSkills = 'checked'
+      ? [...inputData.skills, name]
+      : inputData.skills.filter((skill) => skill !== name);
+      setInputData({ ...inputData, skills: updatedSkills });
+    }
     console.log(inputData);
+    
   }
 
   function handleSubmit() {
@@ -74,16 +83,14 @@ function Home() {
             <div className="flex flex-col">
               {Object.keys(requiredRoles).map((role, idx) => (
                 <div key={idx} className="mb-4">
-                  <h2 className="text-lg font-medium text-gray-800 mb-2">
-                    {role}
-                  </h2>
                   {Object.keys(requiredRoles[role]).map((skill, idx) => (
                     <div key={idx} className="flex items-center">
                       <input
                         type="checkbox"
                         name={skill}
-                        id={skill}
                         className="mr-2"
+                        onChange={handleChange}
+                        value={skill}
                       />
                       <label htmlFor={skill} className="text-gray-700">
                         {skill}
