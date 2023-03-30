@@ -5,9 +5,10 @@ import { useState } from "react";
 function Home() {
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [inputData, setInputData] = useState({
-    'job-title': "",
+    "job-title": "",
     skills: [],
   });
+  const [potentialCandidates, setPotentialCandidates] = useState(candidates);
 
   function matchRoles(requiredRoles, candidates) {
     const matchedCandidates = {};
@@ -28,10 +29,12 @@ function Home() {
     console.log(inputData);
   }
 
-  function handleSubmit() {
+  function handleSubmit(event) {
+    event.preventDefault();
     const matchedCandidates = matchRoles(requiredRoles, candidates);
     return matchedCandidates;
   }
+
   function handleSkillSelect(event) {
     const skill = event.target.value;
     if (event.target.checked) {
@@ -39,9 +42,20 @@ function Home() {
     } else {
       setSelectedSkills(selectedSkills.filter((s) => s !== skill));
     }
-    
-    console.log(inputData);
 
+    console.log(inputData);
+    console.log(selectedSkills);
+  }
+
+  function submitCandidates(e) {
+    e.preventDefault();
+    for (let skill of selectedSkills) {
+      for (let candidate of potentialCandidates) {
+        if (candidate.skills.hasOwnProperty(skill)) {
+          console.log(`${candidate.name} has the skill ${skill}`);
+        }
+      }
+    }
   }
 
   return (
@@ -113,17 +127,14 @@ function Home() {
           <button
             type="submit"
             className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+            onClick={submitCandidates}
           >
             Save
           </button>
         </div>
       </form>
-      
-       
-            
     </div>
   );
 }
 
 export default Home;
-
