@@ -4,6 +4,7 @@ import { useState } from "react";
 
 function Home() {
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const [answer, setAnswer] = useState('');
   const [inputData, setInputData] = useState({
     "job-title": "",
     skills: [],
@@ -52,14 +53,14 @@ function Home() {
     for (let skill of selectedSkills) {
       for (let candidate of potentialCandidates) {
         if (candidate.skills.hasOwnProperty(skill)) {
-          console.log(`${candidate.name} has the skill ${skill}`);
+          setAnswer(`${candidate.name} has the skill ${skill}`);
         }
       }
     }
   }
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-purple-800 to-indigo-600">
+    <div className="flex flex-col md:flex-row gap-6 justify-center items-center min-h-screen bg-gradient-to-br from-purple-800 to-indigo-600">
       <form
         className="w-full max-w-2xl px-6 py-10 bg-white rounded-lg shadow-md"
         onSubmit={handleSubmit}
@@ -134,8 +135,20 @@ function Home() {
           </button>
         </div>
       </form>
+      <div className="w-full max-w-2xl px-6 py-10 bg-white rounded-lg shadow-md mt-12">
+        <h1 className="text-3xl font-semibold text-gray-800 mb-4">Matched Candidates</h1>
+        {potentialCandidates.map((candidate, idx) => (
+          <div key={idx} className="mb-4">
+           
+            <p className="text-gray-700">{answer}</p>
+          </div>
+
+        ))}    
+              
+      </div>
     </div>
   );
 }
+
 
 export default Home;
