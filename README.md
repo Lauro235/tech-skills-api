@@ -1,38 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# README
 
-## Getting Started
+Visit our site -> https://tech-skills-1bj8msvas-lauro235.vercel.app/
 
-First, run the development server:
+## Idea for Structure
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- Brief
+  Create a lightweight system that allows you to enter some contract details (start date, end date, name and contact) a set of required roles with a certain demand for skills (Java, Javascript, Python, AWS etc) against a contract. Given a set of possible candidates for the roles and their skills write a matching algorithm and display the results.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Purpose of App
+  The purpose of the app is to provide employers a quick way to create a job listing and match the relevant profiles according to the skills they check as important.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Process
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+  - Interpret the brief - make sure we all understand the purpose of the app
+  - Decide the stack
+  - Create a lowfi mockup - help clarify ux
+  - Build
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- Tech Stack
+  1. Next/React 
+  2. Tailwind CSS
+  3. DaisyUI
+  4. Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Challenges
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+  
