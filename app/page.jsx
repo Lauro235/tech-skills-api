@@ -1,154 +1,92 @@
-import { candidates, requiredRoles, contract } from "@/data/data";
+import { candidates, requiredRoles } from "@/data/data";
 
-export default function Home() {
-  // Define the contract object
-
-  // Define the matching algorithm
+function Home() {
   function matchRoles(requiredRoles, candidates) {
     const matchedCandidates = {};
-    // Iterate over each required role
+
     for (const [role, skills] of Object.entries(requiredRoles)) {
-      // Find candidates that match the required skills for the role
       const matchingCandidates = candidates.filter((candidate) => {
         return Object.entries(skills).every(([skill, demand]) => {
           return candidate.skills[skill] >= demand;
         });
       });
-      // Add the matching candidates to the result object
+
       matchedCandidates[role] = matchingCandidates;
     }
+
     return matchedCandidates;
   }
-  // Call the matching algorithm and display the results
+
   const matchedCandidates = matchRoles(requiredRoles, candidates);
-  console.log(matchedCandidates);
 
   return (
-    <form className="grid grid-col-1 p-6">
-      <div className="space-y-12">
-        <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">
-            Profile
-          </h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
-            This information will be displayed publicly so be careful what you
-            share.
+    <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-purple-800 to-indigo-600">
+      <form className="w-full max-w-2xl px-6 py-10 bg-white rounded-lg shadow-md">
+        <div className="mb-12">
+          <h1 className="text-3xl font-semibold text-gray-800">Profile</h1>
+          <p className="text-sm text-gray-600 mt-2">
+            This information will be displayed publicly so be careful what you share.
           </p>
+        </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-4">
-              <label
-                htmlFor="job title"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Job Title
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="text"
-                    name="job title"
-                    id="job-title"
-                    autoComplete="job title"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="Jane Smith"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="sm:col-span-4">
-              <h2 className="text-base font-semibold leading-7 text-gray-900">
-                Skills
-              </h2>
-              <label
-                htmlFor="skills"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Java
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="checkbox"
-                    name="skills"
-                    id="skills"
-                    autoComplete="job title"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+          <div>
+            <label htmlFor="job-title" className="block text-sm font-medium text-gray-700 mb-2">
+              Job Title
+            </label>
+            <input
+              type="text"
+              name="job-title"
+              id="job-title"
+              className="w-full px-4 py-2 rounded-md border border-gray-400 focus:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              placeholder="Enter your job title"
+            />
+          </div>
 
-            {/* <div className="sm:col-span-4">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Email
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="text"
-                    name="email"
-                    id="email"
-                    autoComplete="email"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="JaneSmith@hotmail.com"
-                  />
+          <div>
+            <label htmlFor="skills" className="block text-sm font-medium text-gray-700 mb-2">
+              Skills
+            </label>
+            <div className="flex flex-col">
+              {Object.keys(requiredRoles).map((role, idx) => (
+                <div key={idx} className="mb-4">
+                  <h2 className="text-lg font-medium text-gray-800 mb-2">{role}</h2>
+                  {Object.keys(requiredRoles[role]).map((skill, idx) => (
+                    <div key={idx} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        name={skill}
+                        id={skill}
+                        className="mr-2"
+                      />
+                      <label htmlFor={skill} className="text-gray-700">{skill}</label>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            </div> */}
-            {/*<div className="sm:col-span-4">
-              <label
-                htmlFor="start date"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Start Date
-              </label>
-              <div className="mt-2">
-                <input
-                  id="start-date"
-                  name="start date"
-                  type="date"
-                  className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
-                />
-              </div>
+              ))}
             </div>
-            <div className="sm:col-span-4">
-              <label
-                htmlFor="end date"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                End Date
-              </label>
-              <div className="mt-2">
-                <input
-                  id="end-date"
-                  name="end date"
-                  type="date"
-                  className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div> */}
           </div>
         </div>
-      </div>
 
-      <div className="mt-6 flex items-center justify-start gap-x-6">
-        <button
-          type="button"
-          className="text-sm font-semibold leading-6 text-gray-900"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Save
-        </button>
-      </div>
-    </form>
+        <div className="flex justify-between">
+          <button
+            type="button"
+            className="px-4 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+
+      
+    </div>
   );
 }
+
+export default Home;
