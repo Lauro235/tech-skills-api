@@ -12,7 +12,7 @@ module.exports = {
     extend: {},
   },
   daisyui: {
-    themes: ["aqua"],
+    themes: ["synthwave"],
   },
 
   plugins: [require("@tailwindcss/forms" ), require("daisyui")],
