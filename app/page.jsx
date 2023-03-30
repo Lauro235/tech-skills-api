@@ -3,8 +3,9 @@ import { candidates, requiredRoles } from "@/data/data";
 import { useState } from "react";
 
 function Home() {
+  const [selectedSkills, setSelectedSkills] = useState([]);
   const [inputData, setInputData] = useState({
-    "job title": "",
+    'job-title': "",
     skills: [],
   });
 
@@ -22,23 +23,25 @@ function Home() {
     return matchedCandidates;
   }
 
-  function handleChange(event, name) {
-    
-    if (name === "job-title") {
-      setInputData({ ...inputData, [event.target.name]: event.target.value });
-    } else {
-      const updatedSkills = 'checked'
-      ? [...inputData.skills, name]
-      : inputData.skills.filter((skill) => skill !== name);
-      setInputData({ ...inputData, skills: updatedSkills });
-    }
+  function handleChangeInput(event) {
+    setInputData({ ...inputData, [event.target.name]: event.target.value });
     console.log(inputData);
-    
   }
 
   function handleSubmit() {
     const matchedCandidates = matchRoles(requiredRoles, candidates);
     return matchedCandidates;
+  }
+  function handleSkillSelect(event) {
+    const skill = event.target.value;
+    if (event.target.checked) {
+      setSelectedSkills([...selectedSkills, skill]);
+    } else {
+      setSelectedSkills(selectedSkills.filter((s) => s !== skill));
+    }
+    
+    console.log(inputData);
+
   }
 
   return (
@@ -69,7 +72,7 @@ function Home() {
               id="job-title"
               className="w-full px-4 py-2 rounded-md border border-gray-400 focus:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600"
               placeholder="Enter your job title"
-              onChange={handleChange}
+              onChange={handleChangeInput}
             />
           </div>
 
@@ -83,14 +86,17 @@ function Home() {
             <div className="flex flex-col">
               {Object.keys(requiredRoles).map((role, idx) => (
                 <div key={idx} className="mb-4">
+                  <h2 className="text-lg font-medium text-gray-800 mb-2">
+                    {role}
+                  </h2>
                   {Object.keys(requiredRoles[role]).map((skill, idx) => (
                     <div key={idx} className="flex items-center">
                       <input
                         type="checkbox"
-                        name={skill}
-                        className="mr-2"
-                        onChange={handleChange}
                         value={skill}
+                        id={skill}
+                        className="mr-2"
+                        onChange={handleSkillSelect}
                       />
                       <label htmlFor={skill} className="text-gray-700">
                         {skill}
@@ -112,8 +118,12 @@ function Home() {
           </button>
         </div>
       </form>
+      
+       
+            
     </div>
   );
 }
 
 export default Home;
+
